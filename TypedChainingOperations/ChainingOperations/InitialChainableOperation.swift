@@ -8,7 +8,7 @@
 
 import Foundation
 
-class InitialChainableOperation<Output: Any>: Operation, ChainableOperationType{
+class InitialChainableOperation<Output: Any>: Operation, ChainableOperationType {
   
   /// The next operaation to be performed
   weak var nextOperation: ChainableOperationType?
@@ -38,7 +38,7 @@ class InitialChainableOperation<Output: Any>: Operation, ChainableOperationType{
   final func finish(result: Result<Output>) {
     switch result {
     case .Success(let output):
-      guard let nextOperation = nextOperation as? InputOperationType else {
+      guard let nextOperation = nextOperation else {
         fatalError()
       }
       nextOperation.setInput(output)
@@ -46,5 +46,9 @@ class InitialChainableOperation<Output: Any>: Operation, ChainableOperationType{
     case .Failure(let error):
       finishWithError(error)
     }
+  }
+  
+  func setInput(input: Any) {
+    fatalError("Input shoult never be set on this type of ChainableOperation")
   }
 }

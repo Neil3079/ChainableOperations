@@ -8,19 +8,21 @@
 
 import Foundation
 
-protocol InputOperationType {
+protocol ChainableOperationType: class {
+  /// The next operation to be performed
+  weak var nextOperation: ChainableOperationType? { get set }
+  
+  /**
+   Sets the input on the operation, this should never be called directly
+   
+   - parameter input: The input of the operation.
+   */
   func setInput(input: Any)
 }
 
-protocol ChainableOperationType: class {
-  weak var nextOperation: ChainableOperationType? { get set }
-}
-
-class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperationType, InputOperationType {
+class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperationType {
   
   private var input: Input?
-  
-  /// The neext operation to be performed
   weak var nextOperation: ChainableOperationType?
   
   /**
@@ -43,10 +45,16 @@ class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperation
     fatalError("Must be overriden by subclass")
   }
   
+  /**
+   Finishes the operation with either an error or the output value of the operation. If Success with
+   the output value the output value is passed to the next operation in the chain.
+   
+   - parameter result: The result of the operation.
+   */
   final func finish(result: Result<Output>) {
     switch result {
     case .Success(let output):
-      guard let nextOperation = nextOperation as? InputOperationType else {
+      guard let nextOperation = nextOperation else {
         finishWithError(nil)
         return
       }
@@ -56,7 +64,7 @@ class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperation
       finishWithError(error)
     }
   }
-  
+
   final func setInput(input: Any) {
     self.input = input as? Input
   }

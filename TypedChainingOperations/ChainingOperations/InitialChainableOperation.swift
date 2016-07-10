@@ -10,8 +10,12 @@ import Foundation
 
 class InitialChainableOperation<Output: Any>: Operation, ChainableOperationType{
   
+  /// The next operaation to be performed
   weak var nextOperation: ChainableOperationType?
   
+  /**
+   This class should never be called directly
+   */
   override final func execute() {
     performTask()
   }

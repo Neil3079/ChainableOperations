@@ -19,8 +19,13 @@ protocol ChainableOperationType: class {
 class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperationType, InputOperationType {
   
   private var input: Input?
+  
+  /// The neext operation to be performed
   weak var nextOperation: ChainableOperationType?
   
+  /**
+   This should never be called directly
+   */
   override final func execute() {
     guard let input = input else {
       fatalError("Something went wrong this should not be called")

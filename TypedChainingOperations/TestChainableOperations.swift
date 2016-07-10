@@ -8,23 +8,37 @@
 
 import Foundation
 
-class TestChainableOperationOne: InitialChainableOperation<String> {
+struct Data {
+  let something: Int
+  let somethingElse: String
+}
+
+struct OtherDataType {
+  let something: Int
+  let somethingElse: String
+  
+  func printInfo() {
+    print("\(something), \(somethingElse)")
+  }
+}
+
+class TestChainableOperationOne: InitialChainableOperation<Data> {
   override func performTask() {
-    let firstString = "Hello"
-    finish(.Success(firstString))
+    let data = Data(something: 2, somethingElse: "Hello World")
+    finish(.Success(data))
   }
 }
 
-class TestChainableOperationTwo: ChainableOperation<String, String> {
-  override func performTask(input: String) {
-    let secondString = "\(input) World"
-    finish(.Success(secondString))
+class TestChainableOperationTwo: ChainableOperation<Data, OtherDataType> {
+  override func performTask(input: Data) {
+    let otherData = OtherDataType(something: input.something, somethingElse: input.somethingElse)
+    finish(.Success(otherData))
   }
 }
 
-class TestChainableOperationThree: ChainableOperation<String, Void> {
-  override func performTask(input: String) {
-    print(input)
+class TestChainableOperationThree: ChainableOperation<OtherDataType, Void> {
+  override func performTask(input: OtherDataType) {
+    input.printInfo()
     finish(.Success())
   }
 }

@@ -21,13 +21,19 @@ class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperation
   private var input: Input?
   weak var nextOperation: ChainableOperationType?
   
-  override func execute() {
+  override final func execute() {
     guard let input = input else {
       fatalError("Something went wrong this should not be called")
     }
     performTask(input)
   }
   
+  /**
+   The actual work to be performed by the operation.
+   
+   - parameter input: The input required by ther operation,this will have been supplied by the previous 
+                      operation in the operation chain.
+   */
   func performTask(input: Input) {
     fatalError("Must be overriden by subclass")
   }
@@ -36,7 +42,8 @@ class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperation
     switch result {
     case .Success(let output):
       guard let nextOperation = nextOperation as? InputOperationType else {
-        fatalError("This should never be called")
+        finishWithError(nil)
+        return
       }
       nextOperation.setInput(output)
       finishWithError(nil)

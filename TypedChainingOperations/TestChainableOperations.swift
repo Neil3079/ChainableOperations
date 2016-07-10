@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TestChainableOperationOne: NoInputChainableOperation<String> {
+class TestChainableOperationOne: InitialChainableOperation<String> {
   override func performTask() {
     let firstString = "Hello"
     finish(.Success(firstString))
@@ -25,5 +25,6 @@ class TestChainableOperationTwo: ChainableOperation<String, String> {
 class TestChainableOperationThree: ChainableOperation<String, Void> {
   override func performTask(input: String) {
     print(input)
+    finish(.Success())
   }
 }

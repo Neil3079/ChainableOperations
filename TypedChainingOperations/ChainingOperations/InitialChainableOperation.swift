@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NoInputChainableOperation<Output: Any>: Operation, ChainableOperationType{
+class InitialChainableOperation<Output: Any>: Operation, ChainableOperationType{
   
   weak var nextOperation: ChainableOperationType?
   
@@ -16,11 +16,21 @@ class NoInputChainableOperation<Output: Any>: Operation, ChainableOperationType{
     performTask()
   }
   
-  
+  /**
+   Contains the work to be performed by the operation. The operation will not finish until finish() 
+   is called. Subclasses should call finish(result: Result<Output>) as this does important work to
+   pass the output to the next operation.
+   */
   func performTask() {
     fatalError("Must be overriden by subclass")
   }
   
+  /**
+   Finishes the operation with either an error or the output value of the operation. If Success with
+   the output value the output value is passed to the next operation in the chain.
+   
+   - parameter result: The result of the operation.
+   */
   final func finish(result: Result<Output>) {
     switch result {
     case .Success(let output):

@@ -16,9 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
-    let operationChain =  TestChainableOperationOne()
-                          ==> TestChainableOperationTwo()
-                          ==> TestChainableOperationThree()
+    let operationChain =  TestChainableOperationFour()
+                          ==> TestChainableOperationFive()
     
     operationQueue.addOperationChain(operationChain)
     

@@ -26,14 +26,10 @@ class OperationChain<Input, OutputType> {
     self.operations = allOperations
   }
   
-  private init(operation: InitialChainableOperation<OutputType> ) {
-    self.operations = [operation]
-  }
-  
   /**
    Creates a new OperationChain by adding a new ChainableOperation to the previous chain.
    The OuputType of the last operation in the chain must be the same as the InputType of the new
-   ChainableOperation
+   ChainableOperation.
    
    - parameter previousChain: The OperationChain to add the new operation to
    - parameter newOperation:  The new operation to be added
@@ -45,32 +41,20 @@ class OperationChain<Input, OutputType> {
   }
   
   /**
-   Creates a new OperationChain with an initial chainable operation.
+   Creates a new OperationChain by combining two chainable operations. The first Operation in the chain
+   must have Void as its Input type.
    
-   - parameter operation: The initial input operation for the operation chain
+   - parameter firstChainableOperation:  The first operation of the chain. This operation must have nil as the input type
+   - parameter secondChainableOperation: The second chainable operation. This operations input type must equal the Output Type of the firstChainableOperation
    
    - returns: A new OperationChain
    */
-  static func create<Y>(operation: InitialChainableOperation<Y>) -> OperationChain<Void,Y> {
-    return OperationChain<Void, Y>(operation: operation)
+  static func create<Y,Z>(firstChainableOperation: ChainableOperation<Void,Y>, secondChainableOperation: ChainableOperation<Y,Z>) -> OperationChain<Y,Z> {
+    return OperationChain<Y,Z>(operations: [firstChainableOperation], lastOperation: secondChainableOperation)
   }
 }
 
 infix operator ==> { associativity left precedence 100 }
-
-/**
- Create an Operation chain with an InitialChainableOperation and a ChainableOperation. The OutputType 
- of the InitialChainableOperation must be the same as the InputType of the ChainableOperation.
- 
- - parameter lhs: The initial chainable operation.
- - parameter rhs: The next chianable operation
- 
- - returns: A new operation chain.
- */
-func ==><T,U>(lhs: InitialChainableOperation<T>, rhs: ChainableOperation<T,U>) -> OperationChain<T,U> {
-  let firstChain = OperationChain<Void, String>.create(lhs)
-  return OperationChain<String, String>.join(firstChain, newOperation: rhs)
-}
 
 /**
  Creates a new OperationChain from an existing OperationChain and a new ChainableOperation.
@@ -82,4 +66,17 @@ func ==><T,U>(lhs: InitialChainableOperation<T>, rhs: ChainableOperation<T,U>) -
  */
 func ==><X,Y,Z>(lhs: OperationChain<X,Y>, rhs: ChainableOperation<Y,Z>) -> OperationChain<Y,Z> {
   return  OperationChain<Void, String>.join(lhs, newOperation: rhs)
+}
+
+/**
+ Creates a new OperationChain by combining two chainable operations. The first Operation in the chain
+ must have Void as its Input type.
+ 
+ - parameter lhs: The first operation of the chain. This operation must have nil as the input type
+ - parameter rhs: The second chainable operation. This operations input type must equal the Output Type of the firstChainableOperation
+ 
+ - returns: A new OperationChain
+ */
+func ==><Y,Z>(lhs: ChainableOperation<Void,Y>, rhs: ChainableOperation<Y,Z>) -> OperationChain<Y,Z> {
+  return OperationChain<Y,Z>.create(lhs, secondChainableOperation: rhs)
 }

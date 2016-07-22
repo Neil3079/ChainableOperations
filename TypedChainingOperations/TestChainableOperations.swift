@@ -22,13 +22,6 @@ struct OtherDataType {
   }
 }
 
-class TestChainableOperationOne: InitialChainableOperation<Data> {
-  override func performTask() {
-    let data = Data(something: 2, somethingElse: "Hello World")
-    finish(.Success(data))
-  }
-}
-
 class TestChainableOperationTwo: ChainableOperation<Data, OtherDataType> {
   override func performTask(input: Data) {
     let otherData = OtherDataType(something: input.something, somethingElse: input.somethingElse)
@@ -39,6 +32,20 @@ class TestChainableOperationTwo: ChainableOperation<Data, OtherDataType> {
 class TestChainableOperationThree: ChainableOperation<OtherDataType, Void> {
   override func performTask(input: OtherDataType) {
     input.printInfo()
+    finish(.Success())
+  }
+}
+
+class TestChainableOperationFour: ChainableOperation<Void, String> {
+  override func performTask(input: Void) {
+    print("Void Operation mother fucker")
+    finish(.Success("Void Input String Output mother fucker"))
+  }
+}
+
+class TestChainableOperationFive: ChainableOperation<String, Void> {
+  override func performTask(input: String) {
+    print(input)
     finish(.Success())
   }
 }

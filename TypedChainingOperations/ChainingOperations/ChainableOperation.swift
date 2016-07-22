@@ -29,9 +29,14 @@ class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperation
    This should never be called directly
    */
   override final func execute() {
-    guard let input = input else {
+    guard let input = input  else {
+      if let void = () as? Input where self.input is Void? {
+        performTask(void)
+        return
+      }
       fatalError("Something went wrong this should not be called")
     }
+    
     performTask(input)
   }
   

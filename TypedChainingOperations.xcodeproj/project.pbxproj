@@ -41,7 +41,6 @@
 		3771C47F1D325B00009CB0E4 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3771C4651D325B00009CB0E4 /* Operation.swift */; };
 		3771C4821D328D29009CB0E4 /* OperationChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3771C4811D328D29009CB0E4 /* OperationChain.swift */; };
 		3771C4841D328D72009CB0E4 /* ChainableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3771C4831D328D72009CB0E4 /* ChainableOperation.swift */; };
-		3771C4861D328DBA009CB0E4 /* InitialChainableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3771C4851D328DBA009CB0E4 /* InitialChainableOperation.swift */; };
 		3771C4881D328EC1009CB0E4 /* TestChainableOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3771C4871D328EC1009CB0E4 /* TestChainableOperations.swift */; };
 		37D4E6601D3409D60027DAA7 /* OperationQueue+AddOperationChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D4E65F1D3409D60027DAA7 /* OperationQueue+AddOperationChain.swift */; };
 /* End PBXBuildFile section */
@@ -95,7 +94,6 @@
 		3771C4651D325B00009CB0E4 /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
 		3771C4811D328D29009CB0E4 /* OperationChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OperationChain.swift; path = ChainingOperations/OperationChain.swift; sourceTree = "<group>"; };
 		3771C4831D328D72009CB0E4 /* ChainableOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChainableOperation.swift; path = ChainingOperations/ChainableOperation.swift; sourceTree = "<group>"; };
-		3771C4851D328DBA009CB0E4 /* InitialChainableOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InitialChainableOperation.swift; path = ChainingOperations/InitialChainableOperation.swift; sourceTree = "<group>"; };
 		3771C4871D328EC1009CB0E4 /* TestChainableOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestChainableOperations.swift; sourceTree = "<group>"; };
 		37D4E65F1D3409D60027DAA7 /* OperationQueue+AddOperationChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OperationQueue+AddOperationChain.swift"; path = "ChainingOperations/Extensions/OperationQueue+AddOperationChain.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -240,7 +238,6 @@
 				37D4E65E1D3409AC0027DAA7 /* Extensions */,
 				3771C4811D328D29009CB0E4 /* OperationChain.swift */,
 				3771C4831D328D72009CB0E4 /* ChainableOperation.swift */,
-				3771C4851D328DBA009CB0E4 /* InitialChainableOperation.swift */,
 			);
 			name = ChainingOperations;
 			sourceTree = "<group>";
@@ -367,7 +364,6 @@
 				3771C4681D325B00009CB0E4 /* MutuallyExclusive.swift in Sources */,
 				3771C4791D325B00009CB0E4 /* OperationQueue.swift in Sources */,
 				3771C4771D325B00009CB0E4 /* TimeoutObserver.swift in Sources */,
-				3771C4861D328DBA009CB0E4 /* InitialChainableOperation.swift in Sources */,
 				3771C46A1D325B00009CB0E4 /* NoCancelledDependencies.swift in Sources */,
 				3771C46B1D325B00009CB0E4 /* OperationCondition.swift in Sources */,
 				3771C47F1D325B00009CB0E4 /* Operation.swift in Sources */,

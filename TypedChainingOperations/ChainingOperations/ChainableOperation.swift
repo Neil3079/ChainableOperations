@@ -31,13 +31,13 @@ class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperation
   override final func execute() {
     guard let input = input  else {
       if let void = () as? Input where self.input is Void? {
-        performTask(void)
+        main(void)
         return
       }
       fatalError("Something went wrong this should not be called")
     }
     
-    performTask(input)
+    main(input)
   }
   
   /**
@@ -46,7 +46,7 @@ class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperation
    - parameter input: The input required by ther operation,this will have been supplied by the previous 
                       operation in the operation chain.
    */
-  func performTask(input: Input) {
+  func main(input: Input) {
     fatalError("Must be overriden by subclass")
   }
   

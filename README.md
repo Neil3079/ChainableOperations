@@ -1,63 +1,58 @@
 # ChainableOperations
 
-The aim of this repo is to discover a way effectively pass objects between operations and define operation workflows which will throw and compiler error when a a programmer attempts to connect incompatible operations.
+The aim of this repo is to discover a way effectively pass objects between operations and define operation workflows which will throw and compiler error when a a programmer attempts to connect incompatible operations. The idea is to combine ChainableOperations into structures called OperationChains. OperationChains can then be added to an Operation Queue.
 
-##OperationChain
+Currently the repo takes advantage of the Operations "framework" defined in the [WWDC 2015 AdvancedNSOperations sample code](https://developer.apple.com/sample-code/wwdc/2015/)
 
-A object describing a workflow created from operations. All initialisers are private and these objects must be created using factory methods. Where possible we will use sensible operators to call these static functions to increase readability of the code. 
+## Usage
 
-Most of the work enforcing types is done in th initialiser of this class
+### Declare ChainableOperations
+
+Define your subclasses of ChainableOperation declaring their Input and Output Type like so.
 
 ```swift
-class OperationChain<Input, OutputType> {
-  let operations: [ChainableOperationType]
-  
-  private init(operations: [ChainableOperationType], lastOperation: ChainableOperation<Input,OutputType> ) {
-    var allOperations = operations
-    guard let previousLastOperation = allOperations.last else {
-      allOperations.append(lastOperation)
-      self.operations = allOperations
-      return
-    }
-    if let previousLastOperation  = previousLastOperation as? NSOperation {
-      lastOperation.addDependency(previousLastOperation)
-    }
-    previousLastOperation.nextOperation = lastOperation
-    allOperations.append(lastOperation)
-    self.operations = allOperations
-  }
-  
-  private init(operation: NoInputChainableOperation<OutputType> ) {
-    self.operations = [operation]
-  }
-  
-  static func join<X,Y,Z>(previousChain: OperationChain<Z,X>, newOperation: ChainableOperation<X,Y>) -> OperationChain<X,Y> {
-    return OperationChain<X,Y>(operations: previousChain.operations, lastOperation: newOperation)
-  }
-  
-  static func create<Y>(operation: NoInputChainableOperation<Y>) -> OperationChain<Void,Y> {
-    return OperationChain<Void, Y>(operation: operation)
+class TestChainableOperationOne: ChainableOperation<Void, String> {
+  override func main(input: Void) {
+    finish(.Success("test"))
   }
 }
+
+class TestChainableOperationTwo: ChainableOperation<String, Void> {
+  override func main(input: String) {
+    print(input)
+    finish(.Success())
+  }
+}
+
 ```
 
-##InitialChainableOperation
-The first chainable operation that must be added to an operation chain (this is enforced by the lack of OperationChain initialisers and factory methods). This operation has no input but does have an output. This output will be passed to the next operation in the queue.
+### Combine ChainableOperations to create an OperationChain
 
-##ChainableOperation
-A chainable operation is a generic subclass of `Operation` as defined in the AppleOperations framework created for the WWDC 2015 talk `AdvancedNSOperations`. The genrics define the input and output type allowing communication between operations. The grunt of the work is done in the new finish method which expects a result enum.
+When creating an operation chain the first operation must have an input type of void, this behavior is enforced by the compiler. The Input Type of the second ChainableOperation must equal the OutputType of the first ChainableOperation, again this behavior is enforced by the compiler.
 
 ```swift
-final func finish(result: Result<Output>) {
-    switch result {
-    case .Success(let output):
-      guard let nextOperation = nextOperation as? InputOperationType else {
-        fatalError()
-      }
-      nextOperation.setInput(output)
-      finishWithError(nil)
-    case .Failure(let error):
-      finishWithError(error)
-    }
-  }
+  var operationChain = TestChainableOperationOne()
+                     ==> TestChainableOperationTwo()
 ```
+
+### Extend the chain
+
+We can now extend the chain by adding more ChainableOperation's to the OperationChain.
+
+```swift
+  operationChain = operationChain ==> TestChainableOperationThree()
+```
+
+Or we can actually chain these operators and get rid of the need for `operationChain` to be a `var`
+
+```swift
+  var operationChain = TestChainableOperationOne()
+                     ==> TestChainableOperationTwo()
+                     ==> TestChainableOperationThree()
+```
+
+## TODO
+* Add tests
+* Chainable Block operations
+* Investigate multiple Input/Output ChainableOperations (Though this is currently achieved using tuples)
+* Investigate ChainableOperation that takes input from multiple ChainableOperations

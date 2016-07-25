@@ -65,7 +65,7 @@ infix operator ==> { associativity left precedence 100 }
  - returns: A new operation chain.
  */
 func ==><X,Y,Z>(lhs: OperationChain<X,Y>, rhs: ChainableOperation<Y,Z>) -> OperationChain<Y,Z> {
-  return  OperationChain<Void, String>.join(lhs, newOperation: rhs)
+  return  OperationChain<X, Y>.join(lhs, newOperation: rhs)
 }
 
 /**

@@ -31,7 +31,7 @@ class TestChainableOperationTwo: ChainableOperation<String, Void> {
 When creating an operation chain the first operation must have an input type of void, this behavior is enforced by the compiler. The Input Type of the second ChainableOperation must equal the OutputType of the first ChainableOperation, again this behavior is enforced by the compiler.
 
 ```swift
-  var operationChain = TestChainableOperationOne()
+  let operationChain = TestChainableOperationOne()
                      ==> TestChainableOperationTwo()
 ```
 
@@ -40,13 +40,13 @@ When creating an operation chain the first operation must have an input type of 
 We can now extend the chain by adding more ChainableOperation's to the OperationChain.
 
 ```swift
-  operationChain = operationChain ==> TestChainableOperationThree()
+  let extendedChain = operationChain ==> TestChainableOperationThree()
 ```
 
-Or we can actually chain these operators and get rid of the need for `operationChain` to be a `var`
+Or we can actually chain these operators and get rid of the need for multiple constants.
 
 ```swift
-  var operationChain = TestChainableOperationOne()
+  let operationChain = TestChainableOperationOne()
                      ==> TestChainableOperationTwo()
                      ==> TestChainableOperationThree()
 ```

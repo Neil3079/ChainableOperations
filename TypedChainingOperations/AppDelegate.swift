@@ -12,16 +12,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-  let operationQueue = OperationQueue()
 
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    
-    let operationChain =  TestChainableOperationFour()
-                          ==> TestChainableOperationFive()
-    
-    operationQueue.addOperationChain(operationChain)
-    
-    return true
-  }
 }
 

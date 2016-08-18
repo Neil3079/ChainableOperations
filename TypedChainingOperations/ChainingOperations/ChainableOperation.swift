@@ -12,6 +12,8 @@ protocol ChainableOperationType: class {
   /// The next operation to be performed
   weak var nextOperation: ChainableOperationType? { get set }
   
+  var didFail: Bool { get }
+  
   /**
    Sets the input on the operation, this should never be called directly
    
@@ -20,15 +22,21 @@ protocol ChainableOperationType: class {
   func setInput(input: Any)
 }
 
-class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperationType {
+class ChainableOperation<Input, Output>: Operation, ChainableOperationType {
   
   private var input: Input?
   weak var nextOperation: ChainableOperationType?
+  private(set) var didFail = false
   
   /**
    This should never be called directly
    */
   override final func execute() {
+    if hasFailingDependencies() {
+      finish(.Failure(NSError(code: .ConditionFailed)))
+      return
+    }
+    
     guard let input = input  else {
       if let void = () as? Input where self.input is Void? {
         main(void)
@@ -36,14 +44,14 @@ class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperation
       }
       fatalError("Something went wrong this should not be called")
     }
-    
+     
     main(input)
   }
   
   /**
    The actual work to be performed by the operation.
    
-   - parameter input: The input required by ther operation,this will have been supplied by the previous 
+   - parameter input: The input required by ther operation, this will have been supplied by the previous
                       operation in the operation chain.
    */
   func main(input: Input) {
@@ -53,7 +61,7 @@ class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperation
   /**
    Finishes the operation with either an error or the output value of the operation. If Success with
    the output value the output value is passed to the next operation in the chain.
-   
+    
    - parameter result: The result of the operation.
    */
   final func finish(result: Result<Output>) {
@@ -66,11 +74,22 @@ class ChainableOperation<Input: Any, Output: Any>: Operation, ChainableOperation
       nextOperation.setInput(output)
       finishWithError(nil)
     case .Failure(let error):
+      didFail = true
       finishWithError(error)
     }
   }
 
   final func setInput(input: Any) {
     self.input = input as? Input
+  }
+  
+  private func hasFailingDependencies() -> Bool {
+    let failingDependencies = dependencies.filter {
+      if let chainableOperation = $0 as? ChainableOperationType where chainableOperation.didFail {
+        return true
+      }
+      return false
+    }
+    return failingDependencies.count > 0
   }
 }

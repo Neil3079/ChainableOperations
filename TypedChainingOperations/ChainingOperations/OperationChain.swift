@@ -8,18 +8,21 @@
 
 import Foundation
 
-class OperationChain<Input, OutputType> {
+struct OperationChain<LastOperationInputType, LastOperationOutputType> {
   let operations: [ChainableOperationType]
   
-  private init(operations: [ChainableOperationType], lastOperation: ChainableOperation<Input,OutputType> ) {
+  private init(operations: [ChainableOperationType], lastOperation: ChainableOperation<LastOperationInputType, LastOperationOutputType> ) {
     var allOperations = operations
     guard let previousLastOperation = allOperations.last else {
       allOperations.append(lastOperation)
       self.operations = allOperations
       return
     }
-    if let previousLastOperation  = previousLastOperation as? NSOperation {
-      lastOperation.addDependency(previousLastOperation)
+    
+    operations.forEach {
+      if let operation = $0 as? NSOperation {
+        lastOperation.addDependency(operation)
+      }
     }
     previousLastOperation.nextOperation = lastOperation
     allOperations.append(lastOperation)

@@ -43,6 +43,16 @@
 		3771C4841D328D72009CB0E4 /* ChainableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3771C4831D328D72009CB0E4 /* ChainableOperation.swift */; };
 		3771C4881D328EC1009CB0E4 /* TestChainableOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3771C4871D328EC1009CB0E4 /* TestChainableOperations.swift */; };
 		37D4E6601D3409D60027DAA7 /* OperationQueue+AddOperationChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D4E65F1D3409D60027DAA7 /* OperationQueue+AddOperationChain.swift */; };
+		37E8770F1D65CEA900BDD779 /* RetrieveArtistFromFileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E8770E1D65CEA900BDD779 /* RetrieveArtistFromFileOperation.swift */; };
+		37E877111D65D14C00BDD779 /* GetArtistAlbumsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E877101D65D14C00BDD779 /* GetArtistAlbumsOperation.swift */; };
+		37E877131D65D71900BDD779 /* KeyValueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E877121D65D71900BDD779 /* KeyValueService.swift */; };
+		37E877151D65D73000BDD779 /* KeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E877141D65D73000BDD779 /* KeyValueStore.swift */; };
+		37E877171D65D7C100BDD779 /* SaveFavouriteAlbumsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E877161D65D7C100BDD779 /* SaveFavouriteAlbumsOperation.swift */; };
+		37E877191D65E13600BDD779 /* FavouriteArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E877181D65E13600BDD779 /* FavouriteArtistViewController.swift */; };
+		37E8771B1D65E1A900BDD779 /* FavouriteArtistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E8771A1D65E1A900BDD779 /* FavouriteArtistViewController.xib */; };
+		37E8771D1D65E5A000BDD779 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E8771C1D65E5A000BDD779 /* Album.swift */; };
+		37E8771F1D65E5C100BDD779 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E8771E1D65E5C100BDD779 /* RequestManager.swift */; };
+		37E877281D65E6DA00BDD779 /* ArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E877261D65E6DA00BDD779 /* ArtistTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +106,16 @@
 		3771C4831D328D72009CB0E4 /* ChainableOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChainableOperation.swift; path = ChainingOperations/ChainableOperation.swift; sourceTree = "<group>"; };
 		3771C4871D328EC1009CB0E4 /* TestChainableOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestChainableOperations.swift; sourceTree = "<group>"; };
 		37D4E65F1D3409D60027DAA7 /* OperationQueue+AddOperationChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OperationQueue+AddOperationChain.swift"; path = "ChainingOperations/Extensions/OperationQueue+AddOperationChain.swift"; sourceTree = "<group>"; };
+		37E8770E1D65CEA900BDD779 /* RetrieveArtistFromFileOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RetrieveArtistFromFileOperation.swift; path = ExampleOperations/RetrieveArtistFromFileOperation.swift; sourceTree = "<group>"; };
+		37E877101D65D14C00BDD779 /* GetArtistAlbumsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetArtistAlbumsOperation.swift; sourceTree = "<group>"; };
+		37E877121D65D71900BDD779 /* KeyValueService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueService.swift; sourceTree = "<group>"; };
+		37E877141D65D73000BDD779 /* KeyValueStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStore.swift; sourceTree = "<group>"; };
+		37E877161D65D7C100BDD779 /* SaveFavouriteAlbumsOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveFavouriteAlbumsOperation.swift; sourceTree = "<group>"; };
+		37E877181D65E13600BDD779 /* FavouriteArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteArtistViewController.swift; sourceTree = "<group>"; };
+		37E8771A1D65E1A900BDD779 /* FavouriteArtistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavouriteArtistViewController.xib; sourceTree = "<group>"; };
+		37E8771C1D65E5A000BDD779 /* Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		37E8771E1D65E5C100BDD779 /* RequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		37E877261D65E6DA00BDD779 /* ArtistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,13 +159,8 @@
 			children = (
 				3771C4801D328CFE009CB0E4 /* ChainingOperations */,
 				3771C4461D325B00009CB0E4 /* AppleOperations */,
-				3771C3EC1D32550E009CB0E4 /* AppDelegate.swift */,
-				3771C3EE1D32550E009CB0E4 /* ViewController.swift */,
-				3771C3F01D32550E009CB0E4 /* Main.storyboard */,
-				3771C3F31D32550E009CB0E4 /* Assets.xcassets */,
-				3771C3F51D32550E009CB0E4 /* LaunchScreen.storyboard */,
-				3771C3F81D32550E009CB0E4 /* Info.plist */,
 				3771C4871D328EC1009CB0E4 /* TestChainableOperations.swift */,
+				37E877201D65E5EE00BDD779 /* Example */,
 			);
 			path = TypedChainingOperations;
 			sourceTree = "<group>";
@@ -250,6 +265,77 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		37E877201D65E5EE00BDD779 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				3771C3EC1D32550E009CB0E4 /* AppDelegate.swift */,
+				37E8772A1D65EC1800BDD779 /* Supporting Files */,
+				37E877251D65E63900BDD779 /* Operations */,
+				37E877221D65E60500BDD779 /* Service */,
+				37E877211D65E5FC00BDD779 /* UI */,
+				37E877241D65E61600BDD779 /* Model */,
+				37E877231D65E61000BDD779 /* Networking */,
+			);
+			name = Example;
+			sourceTree = "<group>";
+		};
+		37E877211D65E5FC00BDD779 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				3771C3F51D32550E009CB0E4 /* LaunchScreen.storyboard */,
+				3771C3EE1D32550E009CB0E4 /* ViewController.swift */,
+				3771C3F01D32550E009CB0E4 /* Main.storyboard */,
+				37E877181D65E13600BDD779 /* FavouriteArtistViewController.swift */,
+				37E8771A1D65E1A900BDD779 /* FavouriteArtistViewController.xib */,
+				37E877261D65E6DA00BDD779 /* ArtistTableViewCell.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		37E877221D65E60500BDD779 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				37E877121D65D71900BDD779 /* KeyValueService.swift */,
+				37E877141D65D73000BDD779 /* KeyValueStore.swift */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		37E877231D65E61000BDD779 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				37E8771E1D65E5C100BDD779 /* RequestManager.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		37E877241D65E61600BDD779 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				37E8771C1D65E5A000BDD779 /* Album.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		37E877251D65E63900BDD779 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				37E877101D65D14C00BDD779 /* GetArtistAlbumsOperation.swift */,
+				37E8770E1D65CEA900BDD779 /* RetrieveArtistFromFileOperation.swift */,
+				37E877161D65D7C100BDD779 /* SaveFavouriteAlbumsOperation.swift */,
+			);
+			name = Operations;
+			sourceTree = "<group>";
+		};
+		37E8772A1D65EC1800BDD779 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3771C3F31D32550E009CB0E4 /* Assets.xcassets */,
+				3771C3F81D32550E009CB0E4 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -334,6 +420,7 @@
 				3771C3F71D32550E009CB0E4 /* LaunchScreen.storyboard in Resources */,
 				3771C3F41D32550E009CB0E4 /* Assets.xcassets in Resources */,
 				3771C3F21D32550E009CB0E4 /* Main.storyboard in Resources */,
+				37E8771B1D65E1A900BDD779 /* FavouriteArtistViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +446,7 @@
 				3771C47A1D325B00009CB0E4 /* AlertOperation.swift in Sources */,
 				3771C47D1D325B00009CB0E4 /* GroupOperation.swift in Sources */,
 				3771C4691D325B00009CB0E4 /* NegatedCondition.swift in Sources */,
+				37E877131D65D71900BDD779 /* KeyValueService.swift in Sources */,
 				3771C46F1D325B00009CB0E4 /* SilentCondition.swift in Sources */,
 				3771C4751D325B00009CB0E4 /* BlockObserver.swift in Sources */,
 				3771C4681D325B00009CB0E4 /* MutuallyExclusive.swift in Sources */,
@@ -366,19 +454,27 @@
 				3771C4771D325B00009CB0E4 /* TimeoutObserver.swift in Sources */,
 				3771C46A1D325B00009CB0E4 /* NoCancelledDependencies.swift in Sources */,
 				3771C46B1D325B00009CB0E4 /* OperationCondition.swift in Sources */,
+				37E877111D65D14C00BDD779 /* GetArtistAlbumsOperation.swift in Sources */,
+				37E877151D65D73000BDD779 /* KeyValueStore.swift in Sources */,
 				3771C47F1D325B00009CB0E4 /* Operation.swift in Sources */,
+				37E877191D65E13600BDD779 /* FavouriteArtistViewController.swift in Sources */,
 				3771C4731D325B00009CB0E4 /* NSOperation+Operations.swift in Sources */,
 				3771C46D1D325B00009CB0E4 /* ReachabilityCondition.swift in Sources */,
 				3771C4881D328EC1009CB0E4 /* TestChainableOperations.swift in Sources */,
 				3771C3EF1D32550E009CB0E4 /* ViewController.swift in Sources */,
+				37E877281D65E6DA00BDD779 /* ArtistTableViewCell.swift in Sources */,
 				3771C4781D325B00009CB0E4 /* ExclusivityController.swift in Sources */,
 				3771C47C1D325B00009CB0E4 /* DelayOperation.swift in Sources */,
+				37E8771D1D65E5A000BDD779 /* Album.swift in Sources */,
 				3771C4711D325B00009CB0E4 /* Dictionary+Operations.swift in Sources */,
 				3771C4821D328D29009CB0E4 /* OperationChain.swift in Sources */,
+				37E877171D65D7C100BDD779 /* SaveFavouriteAlbumsOperation.swift in Sources */,
+				37E8770F1D65CEA900BDD779 /* RetrieveArtistFromFileOperation.swift in Sources */,
 				3771C4841D328D72009CB0E4 /* ChainableOperation.swift in Sources */,
 				3771C4661D325B00009CB0E4 /* CalendarCondition.swift in Sources */,
 				3771C4761D325B00009CB0E4 /* OperationObserver.swift in Sources */,
 				37D4E6601D3409D60027DAA7 /* OperationQueue+AddOperationChain.swift in Sources */,
+				37E8771F1D65E5C100BDD779 /* RequestManager.swift in Sources */,
 				3771C4671D325B00009CB0E4 /* LocationCondition.swift in Sources */,
 				3771C4741D325B00009CB0E4 /* UIUserNotifications+Operations.swift in Sources */,
 				3771C46C1D325B00009CB0E4 /* OperationErrors.swift in Sources */,

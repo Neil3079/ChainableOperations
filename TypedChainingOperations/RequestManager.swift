@@ -19,7 +19,7 @@ struct RequestManager {
   func performRequest(urlRequest: NSURLRequest, completion: (Result<[String: AnyObject]> -> Void)) {
     session.dataTaskWithRequest(urlRequest) {data, response, error in
       guard let data = data else {
-        completion(.Failure(NSError(code: .ExecutionFailed)))
+        completion(.Failure(RequestManagerError.InvalidData))
         return
       }
       
@@ -31,4 +31,8 @@ struct RequestManager {
       completion(.Success(jsonDictionary))
       }.resume()
   }
+}
+
+enum RequestManagerError: ErrorType {
+  case InvalidData
 }

@@ -24,7 +24,7 @@ class GetArtistAlbumsOperation: ChainableOperation<String, [Album]> {
   override func main(input: String) {
     let urlString = "https://api.spotify.com/v1/artists/\(input)/albums"
     guard let url = NSURL(string: urlString) else {
-      finish(.Failure(NSError(code: .ExecutionFailed)))
+      finish(.Failure(GetArtistAlbumsOperationError.InvalidURL))
       return
     }
     let request = NSURLRequest(URL: url)
@@ -32,7 +32,7 @@ class GetArtistAlbumsOperation: ChainableOperation<String, [Album]> {
       switch result {
       case .Success(let responseDictionary):
         guard let albumArray = responseDictionary["items"] as? [[String: AnyObject]] else {
-          self?.finish(.Failure(NSError(code: .ExecutionFailed)))
+          self?.finish(.Failure(GetArtistAlbumsOperationError.InvalidJSON))
           return
         }
         let albums = albumArray.flatMap { Album(dictionary: $0) }
@@ -45,4 +45,9 @@ class GetArtistAlbumsOperation: ChainableOperation<String, [Album]> {
       }
     }
   }
+}
+
+enum GetArtistAlbumsOperationError: ErrorType {
+  case InvalidURL
+  case InvalidJSON
 }

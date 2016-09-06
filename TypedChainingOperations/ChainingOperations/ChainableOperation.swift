@@ -22,7 +22,7 @@ protocol ChainableOperationType: class {
   func setInput(input: Any)
 }
 
-class ChainableOperation<Input, Output>: Operation, ChainableOperationType {
+class ChainableOperation<Input, Output>: BaseAsynchronousOperation, ChainableOperationType {
   
   private var input: Input?
   weak var nextOperation: ChainableOperationType?
@@ -33,7 +33,7 @@ class ChainableOperation<Input, Output>: Operation, ChainableOperationType {
    */
   override final func execute() {
     if hasFailingDependencies() {
-      finish(.Failure(NSError(code: .ConditionFailed)))
+      finish(.Failure(ChainableOperationError.DependanciesFailed))
       return
     }
     
@@ -68,14 +68,14 @@ class ChainableOperation<Input, Output>: Operation, ChainableOperationType {
     switch result {
     case .Success(let output):
       guard let nextOperation = nextOperation else {
-        finishWithError(nil)
+        finish()
         return
       }
       nextOperation.setInput(output)
-      finishWithError(nil)
+      finish()
     case .Failure(let error):
       didFail = true
-      finishWithError(error)
+      finish(withErrors: [error as NSError])
     }
   }
 
@@ -92,4 +92,8 @@ class ChainableOperation<Input, Output>: Operation, ChainableOperationType {
     }
     return failingDependencies.count > 0
   }
+}
+
+enum ChainableOperationError: ErrorType {
+  case DependanciesFailed
 }

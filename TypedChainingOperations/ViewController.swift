@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
   
-  let operationQueue = OperationQueue()
+  let operationQueue = NSOperationQueue()
   var albums: [Album] = []
 
   @IBOutlet weak var tableView: UITableView!

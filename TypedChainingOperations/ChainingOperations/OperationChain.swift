@@ -24,6 +24,7 @@ struct OperationChain<LastOperationInputType, LastOperationOutputType> {
         lastOperation.addDependency(operation)
       }
     }
+    
     previousLastOperation.nextOperation = lastOperation
     allOperations.append(lastOperation)
     self.operations = allOperations

@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
   
-  let operationQueue = NSOperationQueue()
+  let operationQueue = OperationQueue()
   var albums: [Album] = []
 
   @IBOutlet weak var tableView: UITableView!
@@ -26,22 +26,22 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: GetArtistAlbumsOperationDelegate {
-  func getArtistAlbumsOperationDidFinish(albums: [Album]) {
+  func getArtistAlbumsOperationDidFinish(_ albums: [Album]) {
     self.albums = albums
     tableView.reloadData()
   }
 }
 
 extension ViewController: UITableViewDataSource {
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return albums.count
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCellWithIdentifier(AlbumTableViewCell.reuseIdentifier, forIndexPath: indexPath) as? AlbumTableViewCell else {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: AlbumTableViewCell.reuseIdentifier, for: indexPath) as? AlbumTableViewCell else {
       fatalError()
     }
-    cell.albumNameLabel.text = albums[indexPath.row].name
+    cell.albumNameLabel.text = albums[(indexPath as NSIndexPath).row].name
     return cell
   }
 }

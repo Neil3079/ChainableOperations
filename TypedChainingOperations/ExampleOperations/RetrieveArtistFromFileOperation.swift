@@ -16,14 +16,14 @@ class GetUsersFavouriteArtistOperation: ChainableOperation<Void, String> {
     self.presentationContext = presentationContext
   }
   
-  override func main(input: Void) {
+  override func main(_ input: Void) {
     let favouriteArtistVC = FavouriteArtistViewController(delegate: self)
-    presentationContext.presentViewController(favouriteArtistVC, animated: true, completion: nil)
+    presentationContext.present(favouriteArtistVC, animated: true, completion: nil)
   }
 }
 
 extension GetUsersFavouriteArtistOperation: FavouriteArtistViewControllerDelegate {
-  func favouriteArtistPicked(artistName: String) {
-    finish(.Success(artistName))
+  func favouriteArtistPicked(_ artistName: String) {
+    finish(.success(artistName))
   }
 }

@@ -18,7 +18,7 @@ protocol KeyValueStoreType {
    
    - returns: Optional object stored against key
    */
-  func objectForKey(defaultName: String) -> AnyObject?
+  func object(forKey defaultName: String) -> Any?
   
   /**
    Sets Optional AnyObject against a unique key. If a value for
@@ -27,24 +27,24 @@ protocol KeyValueStoreType {
    - parameter value:  Object to be stored.
    - parameter forKey: Unique key to identify Object.
    */
-  func setObject(value: AnyObject?, forKey: String)
+  func set(_ value: Any?, forKey defaultName: String)
 }
 
-extension NSUserDefaults: KeyValueStoreType {}
+extension UserDefaults: KeyValueStoreType {}
 
-public extension NSThread {
+public extension Thread {
   /**
    Checks the current thread and runs the given closure synchronously on the main thread.
    
    - parameter mainThreadClosure: the closure to call on the main thread
    */
-  static func executeOnMain(mainThreadClosure: () -> Void) {
-    if self.currentThread() == self.mainThread() {
+  static func executeOnMain(_ mainThreadClosure: () -> Void) {
+    if self.current == self.main {
       mainThreadClosure()
     } else {
       
-      let queue = dispatch_get_main_queue()
-      dispatch_sync(queue, {
+      let queue = DispatchQueue.main
+      queue.sync(execute: {
         mainThreadClosure()
       })
       

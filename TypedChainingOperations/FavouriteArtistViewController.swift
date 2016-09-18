@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FavouriteArtistViewControllerDelegate: class {
-  func favouriteArtistPicked(artistName: String)
+  func favouriteArtistPicked(_ artistName: String)
 }
 
 final class FavouriteArtistViewController: UIViewController {
@@ -24,9 +24,9 @@ final class FavouriteArtistViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-  @IBAction func goPressed(sender: AnyObject) {
+  @IBAction func goPressed(_ sender: AnyObject) {
     delegate?.favouriteArtistPicked("08GQAI4eElDnROBrJRGE0X")
-    dismissViewControllerAnimated(true, completion: nil)
+    dismiss(animated: true, completion: nil)
   }
 
 }

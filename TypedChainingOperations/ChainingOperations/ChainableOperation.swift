@@ -19,26 +19,26 @@ protocol ChainableOperationType: class {
    
    - parameter input: The input of the operation.
    */
-  func setInput(input: Any)
+  func setInput(_ input: Any)
 }
 
 class ChainableOperation<Input, Output>: BaseAsynchronousOperation, ChainableOperationType {
   
-  private var input: Input?
+  fileprivate var input: Input?
   weak var nextOperation: ChainableOperationType?
-  private(set) var didFail = false
+  fileprivate(set) var didFail = false
   
   /**
    This should never be called directly
    */
   override final func execute() {
     if hasFailingDependencies() {
-      finish(.Failure(ChainableOperationError.DependanciesFailed))
+      finish(.failure(ChainableOperationError.dependanciesFailed))
       return
     }
     
     guard let input = input  else {
-      if let void = () as? Input where self.input is Void? {
+      if let void = () as? Input , self.input is Void? {
         main(void)
         return
       }
@@ -54,7 +54,7 @@ class ChainableOperation<Input, Output>: BaseAsynchronousOperation, ChainableOpe
    - parameter input: The input required by ther operation, this will have been supplied by the previous
                       operation in the operation chain.
    */
-  func main(input: Input) {
+  func main(_ input: Input) {
     fatalError("Must be overriden by subclass")
   }
   
@@ -64,28 +64,28 @@ class ChainableOperation<Input, Output>: BaseAsynchronousOperation, ChainableOpe
     
    - parameter result: The result of the operation.
    */
-  final func finish(result: Result<Output>) {
+  final func finish(_ result: Result<Output>) {
     switch result {
-    case .Success(let output):
+    case .success(let output):
       guard let nextOperation = nextOperation else {
         finish()
         return
       }
       nextOperation.setInput(output)
       finish()
-    case .Failure(let error):
+    case .failure(let error):
       didFail = true
       finish(withErrors: [error as NSError])
     }
   }
 
-  final func setInput(input: Any) {
+  final func setInput(_ input: Any) {
     self.input = input as? Input
   }
   
-  private func hasFailingDependencies() -> Bool {
+  fileprivate func hasFailingDependencies() -> Bool {
     let failingDependencies = dependencies.filter {
-      if let chainableOperation = $0 as? ChainableOperationType where chainableOperation.didFail {
+      if let chainableOperation = $0 as? ChainableOperationType , chainableOperation.didFail {
         return true
       }
       return false
@@ -94,6 +94,6 @@ class ChainableOperation<Input, Output>: BaseAsynchronousOperation, ChainableOpe
   }
 }
 
-enum ChainableOperationError: ErrorType {
-  case DependanciesFailed
+enum ChainableOperationError: Error {
+  case dependanciesFailed
 }

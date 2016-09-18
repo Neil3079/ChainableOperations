@@ -21,6 +21,6 @@ extension Album : DictionaryRepresentable {
   }
   
   func dictionaryRepresentation() -> [String : AnyObject] {
-    return ["name": name]
+    return ["name": name as AnyObject]
   }
 }

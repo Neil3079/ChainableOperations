@@ -14,41 +14,41 @@ enum KeyValueServiceKeys: String {
 
 struct KeyValueService {
   
-  private let store: KeyValueStoreType
+  fileprivate let store: KeyValueStoreType
   
-  init(store: KeyValueStoreType = NSUserDefaults.standardUserDefaults()) {
+  init(store: KeyValueStoreType = UserDefaults.standard) {
     self.store = store
   }
   
   //MARK:- DictionaryRepresentable Value
-  func valueForKey<T: DictionaryRepresentable>(key: KeyValueServiceKeys) -> T? {
+  func valueForKey<T: DictionaryRepresentable>(_ key: KeyValueServiceKeys) -> T? {
     
-    guard let dictionaryValue = store.objectForKey(key.rawValue) as? [String: AnyObject] else {
+    guard let dictionaryValue = store.object(forKey: key.rawValue) as? [String: AnyObject] else {
       return nil
     }
     return T(dictionary: dictionaryValue)
   }
   
-  func storeValueForKey<T: DictionaryRepresentable>(value: T?, key: KeyValueServiceKeys) {
-    store.setObject(value?.dictionaryRepresentation(), forKey: key.rawValue)
+  func storeValueForKey<T: DictionaryRepresentable>(_ value: T?, key: KeyValueServiceKeys) {
+    store.set(value?.dictionaryRepresentation(), forKey: key.rawValue)
   }
   
   //MARK:- DictionaryRepresentable Array
-  func arrayForKey<T: DictionaryRepresentable>(key: KeyValueServiceKeys) -> [T]? {
-    guard let dictionaryValues = store.objectForKey(key.rawValue) as? [[String: AnyObject]] else {
+  func arrayForKey<T: DictionaryRepresentable>(_ key: KeyValueServiceKeys) -> [T]? {
+    guard let dictionaryValues = store.object(forKey: key.rawValue) as? [[String: AnyObject]] else {
       return nil
     }
     return dictionaryValues.flatMap { T(dictionary: $0) }
   }
   
-  func storeArrayForKey<T: DictionaryRepresentable>(values: [T]?, key: KeyValueServiceKeys) {
+  func storeArrayForKey<T: DictionaryRepresentable>(_ values: [T]?, key: KeyValueServiceKeys) {
     let dictionaryValues = (values?.map { $0.dictionaryRepresentation() })
-    store.setObject(dictionaryValues, forKey: key.rawValue)
+    store.set(dictionaryValues, forKey: key.rawValue)
   }
   
   //MARK:- Remove Object
-  func removeValueForKey(key: KeyValueServiceKeys) {
-    store.setObject(nil, forKey: key.rawValue)
+  func removeValueForKey(_ key: KeyValueServiceKeys) {
+    store.set(nil, forKey: key.rawValue)
   }
 }
 

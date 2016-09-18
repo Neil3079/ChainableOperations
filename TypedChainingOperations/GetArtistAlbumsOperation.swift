@@ -9,7 +9,7 @@
 import Foundation
 
 protocol GetArtistAlbumsOperationDelegate: class {
-  func getArtistAlbumsOperationDidFinish(albums: [Album])
+  func getArtistAlbumsOperationDidFinish(_ albums: [Album])
 }
 
 class GetArtistAlbumsOperation: ChainableOperation<String, [Album]> {
@@ -21,33 +21,33 @@ class GetArtistAlbumsOperation: ChainableOperation<String, [Album]> {
     self.delegate = delegate
   }
   
-  override func main(input: String) {
+  override func main(_ input: String) {
     let urlString = "https://api.spotify.com/v1/artists/\(input)/albums"
-    guard let url = NSURL(string: urlString) else {
-      finish(.Failure(GetArtistAlbumsOperationError.InvalidURL))
+    guard let url = URL(string: urlString) else {
+      finish(.failure(GetArtistAlbumsOperationError.invalidURL))
       return
     }
-    let request = NSURLRequest(URL: url)
+    let request = URLRequest(url: url)
     requestManager.performRequest(request) { [weak self] result in
       switch result {
-      case .Success(let responseDictionary):
+      case .success(let responseDictionary):
         guard let albumArray = responseDictionary["items"] as? [[String: AnyObject]] else {
-          self?.finish(.Failure(GetArtistAlbumsOperationError.InvalidJSON))
+          self?.finish(.failure(GetArtistAlbumsOperationError.invalidJSON))
           return
         }
         let albums = albumArray.flatMap { Album(dictionary: $0) }
-        NSThread.executeOnMain {
+        Thread.executeOnMain {
           self?.delegate?.getArtistAlbumsOperationDidFinish(albums)
         }
-        self?.finish(.Success(albums))
-      case .Failure(let error):
-        self?.finish(.Failure(error))
+        self?.finish(.success(albums))
+      case .failure(let error):
+        self?.finish(.failure(error))
       }
     }
   }
 }
 
-enum GetArtistAlbumsOperationError: ErrorType {
-  case InvalidURL
-  case InvalidJSON
+enum GetArtistAlbumsOperationError: Error {
+  case invalidURL
+  case invalidJSON
 }

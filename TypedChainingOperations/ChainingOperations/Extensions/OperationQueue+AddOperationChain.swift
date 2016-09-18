@@ -8,8 +8,8 @@
 
 import Foundation
 
-extension NSOperationQueue {
-  func addOperationChain<T,U>(operationChain: OperationChain<T,U>) {
-    operationChain.operations.flatMap { $0 as? NSOperation }.forEach { addOperation($0) }
+extension OperationQueue {
+  func addOperationChain<T,U>(_ operationChain: OperationChain<T,U>) {
+    operationChain.operations.flatMap { $0 as? Operation }.forEach { addOperation($0) }
   }
 }

@@ -10,29 +10,29 @@ import Foundation
 
 struct RequestManager {
   
-  let session: NSURLSession
+  let session: URLSession
   
-  init(session: NSURLSession = NSURLSession.sharedSession()) {
+  init(session: URLSession = URLSession.shared) {
     self.session = session
   }
   
-  func performRequest(urlRequest: NSURLRequest, completion: (Result<[String: AnyObject]> -> Void)) {
-    session.dataTaskWithRequest(urlRequest) {data, response, error in
+  func performRequest(_ urlRequest: URLRequest, completion: @escaping ((Result<[String: AnyObject]>) -> Void)) {
+    session.dataTask(with: urlRequest, completionHandler: {data, response, error in
       guard let data = data else {
-        completion(.Failure(RequestManagerError.InvalidData))
+        completion(.failure(RequestManagerError.invalidData))
         return
       }
       
-      guard let jsonDictionary = (try? NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers)) as? [String: AnyObject] else {
-        completion(.Failure(NSError(domain: "JSONParsing", code: 400, userInfo: nil)))
+      guard let jsonDictionary = (try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)) as? [String: AnyObject] else {
+        completion(.failure(NSError(domain: "JSONParsing", code: 400, userInfo: nil)))
         return
       }
       
-      completion(.Success(jsonDictionary))
-      }.resume()
+      completion(.success(jsonDictionary))
+      }) .resume()
   }
 }
 
-enum RequestManagerError: ErrorType {
-  case InvalidData
+enum RequestManagerError: Error {
+  case invalidData
 }

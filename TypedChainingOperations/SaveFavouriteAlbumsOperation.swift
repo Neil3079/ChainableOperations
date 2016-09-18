@@ -12,9 +12,9 @@ class SaveFavouriteAlbumsOperation: ChainableOperation<[Album], Void> {
   
   let keyValueService = KeyValueService()
   
-  override func main(input: [Album]) {
+  override func main(_ input: [Album]) {
     keyValueService.storeArrayForKey(input, key: .FavouriteAlbums)
-    finish(.Success())
+    finish(.success())
   }
   
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension OperationQueue {
+public extension OperationQueue {
   func addOperationChain<T,U>(_ operationChain: OperationChain<T,U>) {
     operationChain.operations.flatMap { $0 as? Operation }.forEach { addOperation($0) }
   }

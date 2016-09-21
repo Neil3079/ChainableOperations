@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import NHChainableOperations
 
 protocol GetArtistAlbumsOperationDelegate: class {
   func getArtistAlbumsOperationDidFinish(_ albums: [Album])

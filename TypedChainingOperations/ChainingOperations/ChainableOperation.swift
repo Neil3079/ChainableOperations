@@ -22,7 +22,7 @@ protocol ChainableOperationType: class {
   func setInput(_ input: Any)
 }
 
-class ChainableOperation<Input, Output>: BaseAsynchronousOperation, ChainableOperationType {
+open class ChainableOperation<Input, Output>: BaseAsynchronousOperation, ChainableOperationType {
   
   fileprivate var input: Input?
   weak var nextOperation: ChainableOperationType?
@@ -31,7 +31,7 @@ class ChainableOperation<Input, Output>: BaseAsynchronousOperation, ChainableOpe
   /**
    This should never be called directly
    */
-  override final func execute() {
+  override final public func execute() {
     if hasFailingDependencies() {
       finish(.failure(ChainableOperationError.dependanciesFailed))
       return
@@ -54,7 +54,7 @@ class ChainableOperation<Input, Output>: BaseAsynchronousOperation, ChainableOpe
    - parameter input: The input required by ther operation, this will have been supplied by the previous
                       operation in the operation chain.
    */
-  func main(_ input: Input) {
+  open func main(_ input: Input) {
     fatalError("Must be overriden by subclass")
   }
   
@@ -64,7 +64,7 @@ class ChainableOperation<Input, Output>: BaseAsynchronousOperation, ChainableOpe
     
    - parameter result: The result of the operation.
    */
-  final func finish(_ result: Result<Output>) {
+  public final func finish(_ result: Result<Output>) {
     switch result {
     case .success(let output):
       guard let nextOperation = nextOperation else {

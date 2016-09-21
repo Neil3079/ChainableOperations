@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>NHChainableOperations.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>TypedChainingOperations.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>376C14631D92629B008D13B4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>376C146B1D92629B008D13B4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3771C3E81D32550D009CB0E4</key>
 		<dict>
 			<key>primary</key>

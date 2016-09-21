@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct OperationChain<LastOperationInputType, LastOperationOutputType> {
+public struct OperationChain<LastOperationInputType, LastOperationOutputType> {
   let operations: [ChainableOperationType]
   
   fileprivate init(operations: [ChainableOperationType], lastOperation: ChainableOperation<LastOperationInputType, LastOperationOutputType> ) {
@@ -40,7 +40,7 @@ struct OperationChain<LastOperationInputType, LastOperationOutputType> {
    
    - returns: A new OperationChain
    */
-  static func join<X,Y,Z>(_ previousChain: OperationChain<Z,X>, newOperation: ChainableOperation<X,Y>) -> OperationChain<X,Y> {
+  public static func join<X,Y,Z>(_ previousChain: OperationChain<Z,X>, newOperation: ChainableOperation<X,Y>) -> OperationChain<X,Y> {
     return OperationChain<X,Y>(operations: previousChain.operations, lastOperation: newOperation)
   }
   
@@ -53,7 +53,7 @@ struct OperationChain<LastOperationInputType, LastOperationOutputType> {
    
    - returns: A new OperationChain
    */
-  static func create<Y,Z>(_ firstChainableOperation: ChainableOperation<Void,Y>, secondChainableOperation: ChainableOperation<Y,Z>) -> OperationChain<Y,Z> {
+  public static func create<Y,Z>(_ firstChainableOperation: ChainableOperation<Void,Y>, secondChainableOperation: ChainableOperation<Y,Z>) -> OperationChain<Y,Z> {
     return OperationChain<Y,Z>(operations: [firstChainableOperation], lastOperation: secondChainableOperation)
   }
 }
@@ -73,7 +73,7 @@ infix operator ==> : AdditivePrecedence
  
  - returns: A new operation chain.
  */
-func ==><X,Y,Z>(lhs: OperationChain<X,Y>, rhs: ChainableOperation<Y,Z>) -> OperationChain<Y,Z> {
+public func ==><X,Y,Z>(lhs: OperationChain<X,Y>, rhs: ChainableOperation<Y,Z>) -> OperationChain<Y,Z> {
   return  OperationChain<X, Y>.join(lhs, newOperation: rhs)
 }
 
@@ -86,6 +86,6 @@ func ==><X,Y,Z>(lhs: OperationChain<X,Y>, rhs: ChainableOperation<Y,Z>) -> Opera
  
  - returns: A new OperationChain
  */
-func ==><Y,Z>(lhs: ChainableOperation<Void,Y>, rhs: ChainableOperation<Y,Z>) -> OperationChain<Y,Z> {
+public func ==><Y,Z>(lhs: ChainableOperation<Void,Y>, rhs: ChainableOperation<Y,Z>) -> OperationChain<Y,Z> {
   return OperationChain<Y,Z>.create(lhs, secondChainableOperation: rhs)
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import NHChainableOperations
 
 struct Data {
   let something: Int

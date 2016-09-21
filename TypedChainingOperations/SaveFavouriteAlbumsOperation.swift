@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import NHChainableOperations
 
 class SaveFavouriteAlbumsOperation: ChainableOperation<[Album], Void> {
   

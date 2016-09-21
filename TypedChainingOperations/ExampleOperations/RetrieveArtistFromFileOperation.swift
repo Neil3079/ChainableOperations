@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NHChainableOperations
 
 class GetUsersFavouriteArtistOperation: ChainableOperation<Void, String> {
   
